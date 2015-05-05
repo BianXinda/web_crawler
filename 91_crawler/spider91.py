@@ -15,8 +15,8 @@ class Spider91:
         keyid = mp4_url[-10:]
         if self.db.select_db(keyid):
             return
-        self.db.insert_db(keyid)
         urllib.urlretrieve(mp4_url, keyid)
+        self.db.insert_db(keyid)
         print keyid, ' downloaded!'
 
     def query_mp4_url(self, mp4_link_url):
