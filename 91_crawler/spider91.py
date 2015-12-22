@@ -2,6 +2,7 @@ import urllib
 import urllib2
 import re
 import sys
+from db91 import Db91
 
 class Spider91:
     def __init__(self, url, count):
@@ -63,7 +64,7 @@ if __name__ == "__main__":
         page_count = 20
     else:
         page_count = int(sys.argv[1])
-        print '91spider will download videos from page 1 to page ' page_count
+        print '91spider will download videos from page 1 to page ', page_count
     entry_url = 'http://www.91porn.com/video.php?category=rf&page='
     spider = Spider91(entry_url, page_count)
     spider.query_entry_url()
