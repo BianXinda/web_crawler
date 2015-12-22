@@ -1,12 +1,8 @@
+import sys
 import sqlite3
-
 
 class Db91:
     def __init__(self):
-        self.conn = None
-        self.cursor = None
-
-    def create_db(self):
         self.conn = sqlite3.connect('video91.db')
         self.cursor = self.conn.cursor()
         try:
@@ -19,8 +15,7 @@ class Db91:
         self.conn.commit()
 
     def select_db(self, keyid):
-        t = (keyid, )
-        keys = self.cursor.execute('SELECT * FROM videos WHERE id=?', t)
+        keys = self.cursor.execute('SELECT * FROM videos WHERE id = \'' + keyid + '\'')
         if len(keys.fetchall()) > 0:
             print 'This video already in database:', keyid
             return True
@@ -36,10 +31,17 @@ class Db91:
         self.conn.close()
 
 #used for check database status and clear data
+#./db91.py               # show all keys
+#./db91.py clear         # clear all keys
 if __name__ == "__main__":
+    if len(sys.argv) > 2:
+        print './db91.py \t\t# show all keys \n./db91.py clear \t# clear all keys'
     db = Db91()
-    db.create_db()
-    keys = db.cursor.execute('SELECT * FROM videos WHERE id')
-    print keys.fetchall()
-    # db.clear_db()
+    #show all keys
+    if len(sys.argv) == 1: 
+        keys = db.cursor.execute('SELECT * FROM videos')
+        print keys.fetchall()
+    #delete all keys
+    elif sys.argv[1] == 'clear': 
+        db.clear_db()
     db.close_db()
