@@ -51,7 +51,7 @@ class Spider91:
     soup = BeautifulSoup(data, 'html.parser')
     links = soup.find_all(soup_video_page)
     for link in links:
-      self.query_link_url(link)
+      self.query_link_url(link['href'])
 
   def query_entry_url(self):
     for i in range(1, self.page_count+1):
