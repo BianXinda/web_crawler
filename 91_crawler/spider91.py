@@ -41,7 +41,7 @@ class Spider91:
     res = urllib2.urlopen(link_url)
     soup = BeautifulSoup(res.read().decode('utf-8'), 'html.parser')
     links = soup.find_all('textarea')
-    link = links[1].contents
+    link = (links[1].contents)[0]
     print 'link:', link
     self.query_mp4_url(link)
 
